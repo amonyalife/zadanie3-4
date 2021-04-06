@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -33,39 +35,81 @@ class _HomePage extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-              pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                  Image.network('https://picsum.photos/seed/picsum/200/300',
-                      fit: BoxFit.cover),
-                  Container(
-                    color: Colors.black.withOpacity(0.4),
-                  ),
-                ]),
-                title: Text('Sliver'),
-                centerTitle: true,
-              ),
-              expandedHeight: 200),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              data.map((e) => e).toList(),
-            ),
-          ),
-        ],
+      appBar: AppBar(
+        title: Text('aaa'),
       ),
-      // body: Stack(
-      //   children:<Widget>[
-      //     Image.network("https://static3.depositphotos.com/1001122/125/i/950/depositphotos_1257997-stock-photo-mountain-stream.jpg"),
-      //     Text('zadanie2')
+      body: Column(children: <Widget>[
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+              color: Colors.white,
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: TextField(
+                  decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20.0),
+                        ),
+                        borderSide: BorderSide(color: Colors.purple),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20.0),
+                        ),
+                        borderSide: BorderSide(color: Colors.purple),
+                      ),
+                      labelText: 'text',
+                      labelStyle: TextStyle(color: Colors.purple),
+                      hintText: 'введите  текст',
+                      suffixIcon: Icon(
+                        Icons.search,
+                        color: Colors.purple,
+                      ),
+                      filled: true,
+                      fillColor: Colors.grey[200]),
+                ),
+              ),
+            ),
+            Align(
+                alignment: Alignment.topLeft,
+                 child:Text('поле для подсказки' ),),
+          ],
+        ),
+       
+       
+        Expanded(
+          child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              double _width = constraints.constrainWidth();
 
-      //   ]
-      // ),
+              return _width > 500
+                    ?   
+                  GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2),
+                      itemCount: data.length,
+                      scrollDirection: Axis.vertical,
+                      
+                      itemBuilder: (BuildContext context, int index) =>
+                          data[index],
+                         
+                          
+                    )
+                  : GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3),
+                      itemCount: data.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (BuildContext context, int index) =>
+                          data[index],
+                          
+                    );
+            },
+          ),
+        ),
+      ]),
     );
   }
 }
